@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+<br />
+{% endif %}
+
+<h1>Post Blog</h1>
+
+<form method="POST" action="{% url 'post_save' %}" enctype="multipart/form-data">
+{% csrf_token %}
+Title:
+<br />
+<input type="text" name="title" class="textinputclass" value="{{ post.title }}"/>
+<br />
+Body:
+<br />
+<textarea name="body" class="editable medium-editor-textarea postcontent">{{ post.text }}</textarea>
+<br />
+<br />
+<input type="hidden" name="author" value="{{ user.username }}"/>
+<input type="hidden" name="error_return" value="blog/post_new.html"/>
+<input type="hidden" name="action" value="add"/>
+
+<br />
+<input class="btn btn-primary" type="submit" value="Post Blog" />
+</form>
+<script>var editor = new MediumEditor('.editable');</script>
+{% endblock %}
+
